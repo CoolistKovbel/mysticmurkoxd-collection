@@ -21,8 +21,8 @@ export const CreateServerSchema = z.object({
  * @type {string{}}
  */
 export const UserFormSchema = z.object({
-  name: z.string().min(1, {
-    message: "group name required",
+  name: z.string().min(4, {
+    message: "username required smh sneaky",
   }),
   email: z.string().email(),
   metaAddress: z.string(),

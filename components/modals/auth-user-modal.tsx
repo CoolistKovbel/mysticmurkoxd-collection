@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,11 +27,13 @@ import { Button } from "../ui/button";
 import { useModal } from "@/hooks/use-modal-store";
 import { UserFormSchema } from "@/schemas";
 import { getEthereumAccount } from "@/lib/web3";
+import { authUser } from "@/actions/auth";
 
 
 
 
 export const AuthUserModal = () => {
+  const [isPending, startTranstion] = useTransition();
   const { isOpen, onClose, type } = useModal();
   const router = useRouter();
   const [deFile, setFile] = useState<File | null>(null);
@@ -53,7 +55,7 @@ export const AuthUserModal = () => {
     },
   });
 
-  const isLoading = form.formState.isSubmitting;
+
 
   const onSubmit = async (values: z.infer<typeof UserFormSchema>) => {
     try {
@@ -63,6 +65,14 @@ export const AuthUserModal = () => {
       values.metaAddress = account
 
       console.log(values);
+
+      // Make request to db to save user
+      startTranstion(() => {
+        authUser(values).then((data: any) => {
+          if(data?.success) router.push('/home')
+          if(data?.error) console.log(data?.error)
+        })
+      })
 
       form.reset();
       router.refresh();
@@ -103,7 +113,7 @@ export const AuthUserModal = () => {
                     </FormLabel>
                     <FormControl>
                       <Input
-                        disabled={isLoading}
+                        disabled={isPending}
                         className="bg-zinc-300/50 border-0 focus-visable:ring-0 text-black focus-visable:rin-offset-0"
                         placeholder="enter a username"
                         {...field}
@@ -123,7 +133,7 @@ export const AuthUserModal = () => {
                     </FormLabel>
                     <FormControl>
                       <Input
-                        disabled={isLoading}
+                        disabled={isPending}
                         className="bg-zinc-300/50 border-0 focus-visable:ring-0 text-black focus-visable:rin-offset-0"
                         placeholder="enter your email"
                         type="email"
@@ -137,7 +147,7 @@ export const AuthUserModal = () => {
             </div>
 
             <DialogFooter className="bg-gray-200 px-6 py-4">
-              <Button disabled={isLoading} variant="secondary">
+              <Button disabled={isPending} variant="secondary">
                 Create
               </Button>
             </DialogFooter>
