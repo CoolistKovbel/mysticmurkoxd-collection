@@ -26,6 +26,7 @@ export const UserFormSchema = z.object({
   }),
   email: z.string().email(),
   metaAddress: z.string(),
+  signature: z.string(),
 });
 
 /**

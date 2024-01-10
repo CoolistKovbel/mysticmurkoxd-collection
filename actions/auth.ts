@@ -1,29 +1,30 @@
-"use server"
+"use server";
 
-import { db } from "@/lib/db"
+import { findUserByAddress } from "@/data/user";
+import { db } from "@/lib/db";
 
+export const authUser = async (value: any) => {
+  console.log(value);
 
-export const authUser = async(value: any) => {
+  const { name, email, metaAddress, signature } = value;
 
-  console.log(value)
+  // Checking if user exists
+  const existingUser = await findUserByAddress(metaAddress);
 
-
-  const {name, email, metaAddress} = value
-
-  const existingUser = await db.user.findUnique({where: {metaAddress}})
-
-  if(existingUser) return {error: "user already exists use a different address smh"}
-
+  if (existingUser) return { error: "user already exists use a different address smh" };
 
   const user = await db.user.create({
     data: {
       username: name,
       email,
-      metaAddress
-    }
-  })
+      metaAddress,
+      signature,
+    },
+  });
 
 
-  if(user) return {success: "success"}
+  if(user) {
+    return { success: true };
+  }
 
-}
+};

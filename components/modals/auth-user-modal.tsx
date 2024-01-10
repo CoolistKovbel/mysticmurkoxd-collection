@@ -28,23 +28,18 @@ import { useModal } from "@/hooks/use-modal-store";
 import { UserFormSchema } from "@/schemas";
 import { getEthereumAccount } from "@/lib/web3";
 import { authUser } from "@/actions/auth";
-
-
-
+import { signIn } from "@/auth";
+import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
 export const AuthUserModal = () => {
   const [isPending, startTranstion] = useTransition();
-  const { isOpen, onClose, type } = useModal();
+  const { isOpen, onClose, type, signature } = useModal();
   const router = useRouter();
-  const [deFile, setFile] = useState<File | null>(null);
 
   const isModalOpen = isOpen && type === "authUser";
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setFile(e.target.files[0]);
-    }
-  };
+  if (isModalOpen) {
+    console.log("Signature:", signature);
+  }
 
   const form = useForm({
     resolver: zodResolver(UserFormSchema),
@@ -52,27 +47,43 @@ export const AuthUserModal = () => {
       name: "",
       email: "",
       metaAddress: "",
+      signature: ""
     },
   });
 
-
-
   const onSubmit = async (values: z.infer<typeof UserFormSchema>) => {
     try {
+      const account = await getEthereumAccount();
+      let gg = false
 
-      const account = await getEthereumAccount()
+      values.metaAddress = account;
+      values.signature = signature as string
 
-      values.metaAddress = account
-
-      console.log(values);
 
       // Make request to db to save user
-      startTranstion(() => {
-        authUser(values).then((data: any) => {
-          if(data?.success) router.push('/home')
-          if(data?.error) console.log(data?.error)
-        })
-      })
+      startTranstion(async () => {
+
+        authUser(values).then(async (data: any) => {
+          if (data?.success) {
+            gg = true
+          }
+
+          // Alert user about the error or something.... MAYBE REPONE THE MODAL
+          if (data?.error) console.log(data?.error);
+        });
+
+
+        if(gg){
+          await signIn("credentials", {
+            signature,
+            metaAddress: account,
+            redirectTo: DEFAULT_LOGIN_REDIRECT,
+          });
+        }
+
+
+
+      });
 
       form.reset();
       router.refresh();
@@ -81,6 +92,8 @@ export const AuthUserModal = () => {
       console.log(error);
     }
   };
+
+  
 
   const handleClose = () => {
     form.reset();
@@ -95,14 +108,14 @@ export const AuthUserModal = () => {
             Sign Up
           </DialogTitle>
           <DialogDescription className="text-center text-zine-500">
-            Provide a username and email so users know who you are and you get important email updates in the future.
+            Provide a username and email so users know who you are and you get
+            important email updates in the future.
           </DialogDescription>
         </DialogHeader>
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <div className="space-y-8 px-6">
-
               <FormField
                 control={form.control}
                 name="name"
