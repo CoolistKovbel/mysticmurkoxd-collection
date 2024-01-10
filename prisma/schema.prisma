@@ -13,4 +13,37 @@ model User {
   metaAddress String
   email       String?
   userImage   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Message Message[]
 }
+
+model Channel {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  connectedToServer String
+  owner             String
+  imageBanner       String?
+
+  message Message[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Message {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  content String
+
+  channelId String  @db.ObjectId
+  channel   Channel @relation(fields: [channelId], references: [id])
+
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+

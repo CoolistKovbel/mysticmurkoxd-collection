@@ -4,9 +4,10 @@ import { ethers } from "ethers";
 import { Button } from "./ui/button";
 import { getEthereumAccount } from "@/lib/web3";
 import { useRouter } from "next/navigation";
+import { useModal } from "@/hooks/use-modal-store";
 
 export const MetaSign = () => {
-
+  const {onOpen} = useModal()
   const router = useRouter()
 
   const signInMeta = async () => {
@@ -20,7 +21,11 @@ export const MetaSign = () => {
     const userAddress = ethers.utils.verifyMessage(message, signature);
 
 
-    if(userAddress.toLowerCase() === currentUserAccount.toLowerCase()) return router.push("/home")
+    if(userAddress.toLowerCase() === currentUserAccount.toLowerCase()) {
+      onOpen("authUser")
+    }
+
+    
   }
 
   return (
