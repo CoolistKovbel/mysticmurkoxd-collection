@@ -13,7 +13,7 @@ const SettingsPage = () => {
   };
 
   return (
-    <div>
+    <div className="min-h-screen">
       <h2>User Settings</h2>
       <p>Review or edit your details...</p>
 

@@ -1,9 +1,15 @@
+
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { MobileNav } from "./MobileNav";
 
-const DeHeader = () => {
+
+const DeHeader = async () => {
+
+
+
+
   const listLinks = [
     {
       route: "Home",
