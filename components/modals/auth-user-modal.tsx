@@ -28,8 +28,6 @@ import { useModal } from "@/hooks/use-modal-store";
 import { UserFormSchema } from "@/schemas";
 import { getEthereumAccount } from "@/lib/web3";
 import { authUser } from "@/actions/auth";
-import { signIn } from "@/auth";
-import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
 export const AuthUserModal = () => {
   const [isPending, startTranstion] = useTransition();
@@ -37,9 +35,6 @@ export const AuthUserModal = () => {
   const router = useRouter();
 
   const isModalOpen = isOpen && type === "authUser";
-  if (isModalOpen) {
-    console.log("Signature:", signature);
-  }
 
   const form = useForm({
     resolver: zodResolver(UserFormSchema),
@@ -47,42 +42,28 @@ export const AuthUserModal = () => {
       name: "",
       email: "",
       metaAddress: "",
-      signature: ""
+      signature: "",
     },
   });
 
   const onSubmit = async (values: z.infer<typeof UserFormSchema>) => {
     try {
       const account = await getEthereumAccount();
-      let gg = false
+      let gg = false;
 
       values.metaAddress = account;
-      values.signature = signature as string
-
+      values.signature = signature as string;
 
       // Make request to db to save user
-      startTranstion(async () => {
-
-        authUser(values).then(async (data: any) => {
+      startTranstion(() => {
+        authUser(values).then((data: any) => {
           if (data?.success) {
-            gg = true
+            console.log("User saved");
           }
 
           // Alert user about the error or something.... MAYBE REPONE THE MODAL
           if (data?.error) console.log(data?.error);
         });
-
-
-        if(gg){
-          await signIn("credentials", {
-            signature,
-            metaAddress: account,
-            redirectTo: DEFAULT_LOGIN_REDIRECT,
-          });
-        }
-
-
-
       });
 
       form.reset();
@@ -92,8 +73,6 @@ export const AuthUserModal = () => {
       console.log(error);
     }
   };
-
-  
 
   const handleClose = () => {
     form.reset();

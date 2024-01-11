@@ -1,6 +1,8 @@
 "use server";
 
-import { findUserByAddress } from "@/data/user";
+import { signIn } from "@/auth";
+import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import { findUserByEmail } from "@/data/user";
 import { db } from "@/lib/db";
 
 export const authUser = async (value: any) => {
@@ -9,9 +11,12 @@ export const authUser = async (value: any) => {
   const { name, email, metaAddress, signature } = value;
 
   // Checking if user exists
-  const existingUser = await findUserByAddress(metaAddress);
+  const existingUser = await findUserByEmail(email);
 
-  if (existingUser) return { error: "user already exists use a different address smh" };
+  if (existingUser) {
+    return { error: "user already exists use a different address smh" };
+  } 
+  
 
   const user = await db.user.create({
     data: {
@@ -23,8 +28,14 @@ export const authUser = async (value: any) => {
   });
 
 
-  if(user) {
-    return { success: true };
+  if (user) {
+    await signIn("credentials", {
+      signature: user.signature,
+      metaAddress: user.metaAddress,
+      redirectTo: DEFAULT_LOGIN_REDIRECT,
+    });
   }
 
+
+  return { success: true };
 };

@@ -5,9 +5,9 @@ import { Button } from "./ui/button";
 import { getEthereumAccount } from "@/lib/web3";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
-import { findUserBySignature } from "@/data/user";
-import { signIn } from "@/auth";
-import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import { signUserIntoApp, test } from "./test";
+
+
 
 export const MetaSign = () => {
   const { onOpen } = useModal();
@@ -26,22 +26,18 @@ export const MetaSign = () => {
     const userAddress = ethers.utils.verifyMessage(message, signature);
 
     if (userAddress.toLowerCase() === currentUserAccount.toLowerCase()) {
+      
+      const gg = await test(currentUserAccount)
 
-      const user = await findUserBySignature(signature);
+      if(gg){
 
-      console.log(user)
+        await signUserIntoApp(currentUserAccount, signature)
 
-      if (user) {
-        await signIn("credentials", {
-          signature,
-          metaAddress: userAddress,
-          redirectTo: DEFAULT_LOGIN_REDIRECT,
-        });
       } else {
         onOpen("authUser", signature.toString());
       }
       
-
+      
     }
   };
 

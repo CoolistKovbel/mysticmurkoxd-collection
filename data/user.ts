@@ -12,6 +12,25 @@ export const findUserByAddress = async ( address: string) => {
     return user
 
   } catch (error) {
+
+    console.log(error)
+    return null
+  }
+}
+
+
+/**
+ * This checks the database to see if a user with the same metadress exists.
+ * 
+ *
+ */
+export const findUserByEmail = async ( email: string) => {
+  try {
+    
+    const user = await db.user.findUnique({ where: { email } });
+    return user
+
+  } catch (error) {
     return null
   }
 }
@@ -34,7 +53,7 @@ export const findUserById = async ( id: string) => {
 
 
 /**
- * This checks the database to see if a user with the same id exists.
+ * This checks the database to see if a user with the same signare exists.
  * 
  * 
  */

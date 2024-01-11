@@ -29,6 +29,17 @@ export const UserFormSchema = z.object({
   signature: z.string(),
 });
 
+
+/**
+ * This is a schema that authenicated new users to register their username name and email
+ * 
+ * @type {string{}}
+ */
+export const UserLoginSchema = z.object({
+  metaAddress: z.string(),
+  signature: z.string(),
+});
+
 /**
  * This is a schema that creates a channel that will be sent to database instead of blockchain
  * 

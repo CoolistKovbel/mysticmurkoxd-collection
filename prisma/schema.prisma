@@ -36,7 +36,7 @@ model User {
   metaAddress String  @unique
   signature   String  @unique
   username    String?
-  email       String?
+  email       String? @unique
   userImage   String?
 
   createdAt DateTime @default(now())

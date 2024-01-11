@@ -2,7 +2,7 @@ import type { NextAuthConfig } from "next-auth";
 
 import Credentials from "next-auth/providers/credentials";
 
-import { UserFormSchema } from "./schemas";
+import { UserLoginSchema } from "./schemas";
 import { findUserByAddress, findUserBySignature } from "./data/user";
 
 export default {
@@ -12,7 +12,7 @@ export default {
 
         console.log(credentials, "in the credntials")
 
-        const validatedFields = UserFormSchema.safeParse(credentials);
+        const validatedFields = UserLoginSchema.safeParse(credentials);
 
         if (validatedFields.success) {
 
