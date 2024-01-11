@@ -2,6 +2,7 @@
 import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
 import DeHeader from "@/components/deApp/de-header";
+import FooterComp from "@/components/deApp/FooterComp";
 
 export default async function DappLayout({
   children,
@@ -17,6 +18,8 @@ export default async function DappLayout({
         <DeHeader />
         
         {children}
+
+        <FooterComp />
 
       </section>
     </SessionProvider>

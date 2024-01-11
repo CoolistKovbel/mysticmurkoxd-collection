@@ -55,3 +55,12 @@ export const CreateChannelSchema = z.object({
       message: "Channel name connot be 'general' ",
     }),
 });
+
+/**
+ * This is schema to see how much options
+ * 
+ * @type {string{}}
+ */
+export const MintSchema = z.object({
+  amount: z.string(),
+});
