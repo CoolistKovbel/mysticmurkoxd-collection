@@ -1,6 +1,7 @@
-import Provider from "@/components/providers/session-provider";
+
 import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
+import DeHeader from "@/components/deApp/de-header";
 
 export default async function DappLayout({
   children,
@@ -11,13 +12,12 @@ export default async function DappLayout({
 
   return (
     <SessionProvider session={session}>
-      <section>
+      <section className="bg-[#222] min-h-screen text-white">
 
-        <header>
-          <h2>Mytsic Murko GG</h2>
-        </header>
+        <DeHeader />
         
         {children}
+
       </section>
     </SessionProvider>
   );

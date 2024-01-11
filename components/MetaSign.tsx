@@ -41,5 +41,5 @@ export const MetaSign = () => {
     }
   };
 
-  return <Button onClick={signInMeta}>Join Now</Button>;
+  return <Button onClick={signInMeta} className="cursor-pointer mt-40 p-10 text-4xl font-bold">Join Now</Button>;
 };

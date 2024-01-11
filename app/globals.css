@@ -74,3 +74,42 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-5px, 5px);
+  }
+  40% {
+    transform: translate(5px, -5px);
+  }
+  60% {
+    transform: translate(-5px, 5px);
+  }
+  80% {
+    transform: translate(5px, -5px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: rgb(126, 48, 12); /* Set the glitch color */
+  clip: rect(0, 100%, 0, 100%);
+  animation: glitch 1s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+  color: rgb(170, 146, 39); /* Set another glitch color */
+  animation-delay: 4s;
+}
