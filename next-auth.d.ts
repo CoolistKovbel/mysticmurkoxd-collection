@@ -3,6 +3,7 @@ import NextAuth, { type DefaultSession } from "next-auth";
 
 export type ExtendedUser = DefaultSession["user"] & {
   metaAddress: User;
+  username: User;
 };
 
 declare module "next-auth" {

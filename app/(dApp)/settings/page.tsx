@@ -1,9 +1,25 @@
-import React from 'react'
+"use client";
+
+import { useCurrentUser } from "@/hooks/use-current-user";
+import { logOut } from "@/actions/sign-out";
 
 const SettingsPage = () => {
-  return (
-    <div>SettingsPage</div>
-  )
-}
+  const session = useCurrentUser();
 
-export default SettingsPage
+  console.log(session);
+
+  const onClick = () => {
+    logOut();
+  };
+
+  return (
+    <div>
+      <h2>User Settings</h2>
+      <p>Review or edit your details...</p>
+
+      <button onClick={onClick}>signout</button>
+    </div>
+  );
+};
+
+export default SettingsPage;

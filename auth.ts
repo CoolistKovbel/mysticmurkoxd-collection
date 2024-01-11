@@ -19,8 +19,12 @@ export const {
         session.user.id = token.sub;
       }
 
-      if (token.role && session.user) {
+      if (token.metaAddress && session.user) {
         session.user.metaAddress = token.metaAddress as User;
+      }
+
+      if (token.username && session.user) {
+        session.user.username = token.username as User;
       }
 
       return session;
@@ -35,6 +39,7 @@ export const {
       if (!existingUser) return token;
 
       token.metaAddress = existingUser.metaAddress;
+      token.username = existingUser.username;
 
       return token;
     },
