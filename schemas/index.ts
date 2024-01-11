@@ -64,3 +64,10 @@ export const CreateChannelSchema = z.object({
 export const MintSchema = z.object({
   amount: z.string(),
 });
+
+
+export const UserSettingsSchema = z.object({
+  email: z.optional(z.string()),
+  username: z.optional(z.string().min(5, {message: "please dont just write random letters...."})),
+  userImage: z.optional(z.any())
+})

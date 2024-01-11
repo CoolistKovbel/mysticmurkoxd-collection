@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { MobileNav } from "./MobileNav";
+import { SignOutButton } from "../sing-out-button";
 
 
 const DeHeader = async () => {
@@ -60,10 +61,12 @@ const DeHeader = async () => {
             </span>
           </Link>
         ))}
+        <SignOutButton />
       </nav>
 
       <div className="block md:hidden">
         <MobileNav />
+        <SignOutButton />
       </div>
     </header>
   );

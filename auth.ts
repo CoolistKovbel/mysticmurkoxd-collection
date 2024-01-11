@@ -27,6 +27,10 @@ export const {
         session.user.username = token.username as User;
       }
 
+      if(token.userImage && session.user) {
+        session.user.userImage = token.userImage as User
+      }
+
       return session;
     },
     // Add data in token first
@@ -40,6 +44,7 @@ export const {
 
       token.metaAddress = existingUser.metaAddress;
       token.username = existingUser.username;
+      token.userImage = existingUser.userImage;
 
       return token;
     },

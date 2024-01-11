@@ -28,6 +28,9 @@ export const getEthereumAccount = async () => {
       const account = accounts[0];
       return account;
     } else {
+      
+      alert("connect your metamask account....")
+      
       // Setup another alert
       console.error("No authorized account found");
       return null;
