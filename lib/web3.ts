@@ -193,3 +193,35 @@ export const sendAnnouncement = async (message:string) => {
     return null
   }
 }
+
+/**
+ * Makea request to get all server
+ *
+ * @type {() => void}
+ */
+
+export const grabAllServers = async () => {
+  try {
+    
+    const provider = new ethers.providers.Web3Provider(window?.ethereum as any);
+
+    const signer = provider.getSigner();
+
+    const contractInstance = new ethers.Contract(
+      contractAddress,
+      ABI.abi,
+      signer
+    );
+
+    console.log(contractInstance)
+    
+
+    const servers = await contractInstance.getAllChannels()
+
+    return servers
+
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}

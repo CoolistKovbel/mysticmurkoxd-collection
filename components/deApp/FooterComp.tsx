@@ -22,7 +22,7 @@ const FooterComp = () => {
     },
   ];
   return (
-    <footer className="bg-[#111] p-6 p-y-[20px] flex items-center justify-between text-white flex-col md:flex-row mt-10">
+    <footer className="bg-[#111] p-6 p-y-[20px] flex items-center justify-between text-white flex-col md:flex-row ">
 
       <div className="flex flex-col gap-[4px] w-[300px] md:w-[800px] text-center md:text-left">
 
@@ -49,7 +49,7 @@ const FooterComp = () => {
       </div>
 
       <div className="flex justify-end gap-[100px]">
-        <div className=" flex flex-row items-center md:flex-col mt-10 md:mt-0 gap-[10px] font-semibold">
+        <div className=" flex flex-row items-center md:flex-col md:mt-0 gap-[10px] font-semibold">
           <span className="bg-emerald-500 p-2 text-center rounded-md font-bold">
             Links
           </span>

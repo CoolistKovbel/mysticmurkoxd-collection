@@ -2,7 +2,7 @@ import React from "react";
 
 export const SingleAnnouncement = (annoucnement:any) => {
 
-    console.log(annoucnement.annoucnement)
+    // console.log(annoucnement.annoucnement)
 
 
   return (
