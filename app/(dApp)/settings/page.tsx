@@ -61,14 +61,9 @@ const SettingsPage = () => {
   useEffect(() => {
     const xx = async () => {
       const account = await getEthereumAccount()
-
-
       const images = await getNFTImage(account)
-
-
       setUserImage(images as string)
       
-
     }
 
     xx()
@@ -128,6 +123,7 @@ const SettingsPage = () => {
                       <Input
                         placeholder="enter a username"
                         className="bg-black text-[#16a34a] text-sm"
+                        disabled={isPending}
                         {...field}
                       />
                     </FormControl>
@@ -156,6 +152,7 @@ const SettingsPage = () => {
                         type="email"
                         placeholder="enter your email"
                         className="bg-black text-[#16a34a] text-sm"
+                        disabled={isPending}
                         {...field}
                       />
                     </FormControl>

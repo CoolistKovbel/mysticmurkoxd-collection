@@ -84,3 +84,112 @@ export const getNFTImage = async (account: any) => {
     return null;
   }
 };
+
+
+
+/**
+ * Listen to announcements.
+ *
+ * @type {() => void}
+ */
+
+export const listenToAllAnnouncements = async () => {
+  try {
+
+    const provider = new ethers.providers.Web3Provider(window?.ethereum as any);
+
+    const signer = provider.getSigner();
+
+    const contractInstance = new ethers.Contract(
+      contractAddress,
+      ABI.abi,
+      signer
+    );
+
+
+    contractInstance.on("UserAnnounced", (user, announcemnet) => {
+      let data = {
+        user,
+        announcemnet
+      }
+
+      console.log(data)
+    })
+
+    
+
+    return null
+
+
+    
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
+
+/**
+ * Grab all anounce messages.
+ *
+ * @type {() => void}
+ */
+export const getAllAnouncements = async () => {
+  try {
+
+    const provider = new ethers.providers.Web3Provider(window?.ethereum as any);
+
+    const signer = provider.getSigner();
+
+    const contractInstance = new ethers.Contract(
+      contractAddress,
+      ABI.abi,
+      signer
+    );
+
+
+    const anouncements = await contractInstance.getAllMessages()
+
+    // console.log(anouncements)
+
+    return anouncements
+
+
+    
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
+
+
+/**
+ * Makea request to send announcement
+ *
+ * @type {() => void}
+ */
+export const sendAnnouncement = async (message:string) => {
+  try {
+
+    const provider = new ethers.providers.Web3Provider(window?.ethereum as any);
+
+    const signer = provider.getSigner();
+
+    const contractInstance = new ethers.Contract(
+      contractAddress,
+      ABI.abi,
+      signer
+    );
+
+    await contractInstance.createMessage(message, {
+      value: ethers.utils.parseEther((0.012).toString()),
+      gasLimit: 500000,
+    });
+
+  
+
+    
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}

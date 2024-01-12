@@ -65,9 +65,25 @@ export const MintSchema = z.object({
   amount: z.string(),
 });
 
-
+/**
+ * This is setting shcema where it will check if there is value or not instead of expecting.
+ * 
+ * @type {string{}}
+ */
 export const UserSettingsSchema = z.object({
   email: z.optional(z.string()),
   username: z.optional(z.string().min(5, {message: "please dont just write random letters...."})),
   userImage: z.optional(z.any())
 })
+
+/**
+ * This is is for making sure user sends a good enough message..
+ * 
+ * @type {string{}}
+ */
+export const AnnounceFormSchema = z.object({
+  message: z
+    .string()
+    .min(1, "message is required")
+    .max(255, "sorry you hit max characters"),
+});
