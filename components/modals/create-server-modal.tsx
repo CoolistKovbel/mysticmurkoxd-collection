@@ -27,6 +27,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useModal } from "@/hooks/use-modal-store";
 import { CreateServerSchema } from "@/schemas";
+import { handleCreateServer } from "@/lib/web3";
 
 
 
@@ -56,6 +57,30 @@ export const CreateServerModal = () => {
 
   const onSubmit = async (values: z.infer<typeof CreateServerSchema>) => {
     try {
+      
+
+      values.imageUrl = deFile
+
+      const data = new FormData()
+      data.append("imageUrl", values.imageUrl || "")
+
+      const imageUrl  = await fetch('/api/fileUpload', {
+        method: "POST",
+        body: data
+      })
+
+
+      let cost = ethers.utils.parseEther(values.cost)
+
+      const etherValue = ethers.utils.formatEther(cost.toString())
+
+      console.log(etherValue)
+      const weiValue = ethers.utils.parseEther(etherValue);
+      console.log(weiValue)
+
+
+      await handleCreateServer(values.name, weiValue, imageUrl)
+
       console.log(values);
 
       form.reset();

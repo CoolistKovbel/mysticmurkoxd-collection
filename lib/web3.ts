@@ -225,3 +225,86 @@ export const grabAllServers = async () => {
     return null
   }
 }
+
+/**
+ * Makea request to join the specfic server
+ *
+ * @type {() => void}
+ */
+
+export const handleServerJoin = async (serverId: any, cost: any) => {
+  try {
+
+    const provider = new ethers.providers.Web3Provider(window?.ethereum as any);
+
+    const signer = provider.getSigner();
+
+    const contractInstance = new ethers.Contract(
+      contractAddress,
+      ABI.abi,
+      signer
+    );
+
+
+    const joingServer = await contractInstance.joinChannel(serverId.toString(), {
+      value: cost.toString(),
+      gasLimit: 300000,
+    })
+
+
+    alert("Joining server")
+
+    await joingServer.wait()
+
+
+    alert(`joined server ${joingServer.hash}` )
+
+
+    
+  } catch (error) {
+    console.log(error)
+    return  null
+  }
+}
+
+
+/**
+ * Makea request to join the specfic server
+ *
+ * @type {() => void}
+ */
+
+export const handleCreateServer = async (channelName: string, weiValue: any, imageUrl:any) => {
+  try {
+
+
+    const provider = new ethers.providers.Web3Provider(window?.ethereum as any);
+
+    const signer = provider.getSigner();
+
+    const contractInstance = new ethers.Contract(
+      contractAddress,
+      ABI.abi,
+      signer
+    );
+
+
+    const serverCreated = await contractInstance.createChannel(channelName, weiValue, imageUrl, {
+      value: ethers.utils.parseEther((0.024).toString()),
+      gasLimit: 300000,
+    })
+
+
+    alert("Server is being created one moment please")
+
+    await serverCreated.wait()
+
+    alert(`Server has been created: ${serverCreated.hash} `)
+
+
+    
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
