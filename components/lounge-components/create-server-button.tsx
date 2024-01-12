@@ -4,12 +4,20 @@ import { useModal } from "@/hooks/use-modal-store";
 
 import { ServerCog } from "lucide-react";
 import { Button } from "../ui/button";
+import { userIsVip } from "@/lib/web3";
 
 export const CreateServerButton = () => {
   const { onOpen } = useModal();
 
   const handleButtonClick = async () => {
-    onOpen("createServer");
+    console.log("Check user! one moment please")
+    const userHasNFT = await userIsVip()
+    console.log("completed")
+    if(userHasNFT === true){
+      onOpen("createServer");
+    } else if(userHasNFT === undefined || userHasNFT === false){
+      alert("Please purchase NFT")
+    }
   };
 
   return (

@@ -295,9 +295,10 @@ export const handleCreateServer = async (channelName: string, weiValue: any, ima
     );
 
 
+    // TODO: big number issue... redo think plan here... 🌋
     const serverCreated = await contractInstance.createChannel(channelName, weiValue, imageUrl, {
       value: ethers.utils.parseEther((0.024).toString()),
-      gasLimit: 500000,
+      gasLimit: 600000,
     })
 
 
@@ -339,6 +340,86 @@ export const ownerWithdrawl = async () => {
     await contractInstance.withdraw()
 
 
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
+
+/**
+ * Grab all servers connected to user
+ *
+ * @type {() => void}
+ */
+
+export const myServers = async () => {
+  try {
+
+
+    const provider = new ethers.providers.Web3Provider(window?.ethereum as any);
+
+    const signer = provider.getSigner();
+
+    const contractInstance = new ethers.Contract(
+      contractAddress,
+      ABI.abi,
+      signer
+    );
+
+    const account = await signer.getAddress()
+
+    // Connect the contract instance to the signer
+
+    // Call the smart contract function
+    const userServers = await contractInstance.listChannelsForUser(account)
+
+
+    // alert("getting servers")
+
+    // await userServers.wait()
+
+    // alert(`we got the servers... ${userServers.hash}`)
+
+    return userServers
+    
+  } catch (error) {
+    console.log(error, "error handling my servers")
+    return null
+  }
+}
+
+/**
+ * Checks to see if user owns an nft
+ *
+ * @type {() => void}
+ */
+
+export const userIsVip = async () => {
+  try {
+
+
+    const provider = new ethers.providers.Web3Provider(window?.ethereum as any);
+
+    const signer = provider.getSigner();
+
+    const contractInstance = new ethers.Contract(
+      contractAddress,
+      ABI.abi,
+      signer
+    );
+
+    const account = await signer.getAddress()
+
+    for(let i= 0; i <= 222; i++){
+      const userHasNFT = await contractInstance.hodlerActive(account, i)
+      
+      if(userHasNFT === true) {
+        return userHasNFT
+      }
+    }
+
+
+    
   } catch (error) {
     console.log(error)
     return null

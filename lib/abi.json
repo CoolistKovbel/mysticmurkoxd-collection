@@ -699,6 +699,57 @@
             "type": "function"
         },
         {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "userAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "listChannelsForUser",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint32",
+                            "name": "id",
+                            "type": "uint32"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "name",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "logo",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "cost",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "createdAt",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address[]",
+                            "name": "users",
+                            "type": "address[]"
+                        }
+                    ],
+                    "internalType": "struct SimplePortal.Channel[]",
+                    "name": "",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
             "inputs": [],
             "name": "MAX_PER_WALLET",
             "outputs": [
