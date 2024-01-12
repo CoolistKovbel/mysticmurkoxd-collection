@@ -4,7 +4,7 @@ import Image from "next/image";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useTransition, useState } from "react";
+import { useTransition, useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { User } from 'lucide-react';
 
@@ -21,10 +21,12 @@ import { UserSettingsSchema } from "@/schemas";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { settings } from "@/actions/settings";
+import { getEthereumAccount, getNFTImage } from "@/lib/web3";
 
 const SettingsPage = () => {
   const { update } = useSession();
   const [isPending, startTransition] = useTransition();
+  const [userImage, setUserImage] = useState<string | null>("")
 
   const user = useCurrentUser();
 
@@ -55,6 +57,27 @@ const SettingsPage = () => {
     form.reset();
   };
 
+
+  useEffect(() => {
+    const xx = async () => {
+      const account = await getEthereumAccount()
+
+
+      const images = await getNFTImage(account)
+
+
+      setUserImage(images as string)
+      
+
+    }
+
+    xx()
+
+
+    return () => {}
+
+  }, [])
+
   return (
     <div className="min-h-screen">
       <div className="p-4">
@@ -70,7 +93,13 @@ const SettingsPage = () => {
               <div className="flex items-center justify-between gap-20 flex-col md:flex-row">
 
                 <div className="w-[300px] h-[300px] relative mb-5">
-                  <User className="w-full h-full text-[yellow] bg-black rounded-full" />
+                  {
+                    userImage ? (
+                      <Image src={userImage} alt="user cool profile" fill  className="rounded-full shadow-xl"/>
+                    ) : (
+                      <User className="w-full h-full text-[yellow] bg-black rounded-full" />
+                    )
+                  }
                 </div>
 
                 <div className="p-4">

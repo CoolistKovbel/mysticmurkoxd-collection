@@ -8,26 +8,25 @@ const FooterComp = () => {
     {
       route: "Home",
       href: "/home",
-      emoji: "🏢"
+      emoji: "🏢",
     },
     {
       route: "About",
       href: "/about",
-      emoji: "🌑"
+      emoji: "🌑",
     },
     {
       route: "lounge",
       href: "/lounge",
-      emoji: "🎱"
+      emoji: "🎱",
     },
-
-  ]
+  ];
   return (
-    <footer className="bg-[#111] p-6 p-y-[20px] flex items-center justify-between text-white flex-col md:flex-row">
+    <footer className="bg-[#111] p-6 p-y-[20px] flex items-center justify-between text-white flex-col md:flex-row mt-10">
 
-      <div className="flex flex-col gap-[4px]">
+      <div className="flex flex-col gap-[4px] w-[300px] md:w-[800px] text-center md:text-left">
 
-        <div className="flex items-center">
+        <div className="flex items-center ">
           <div className="w-20 h-20 relative">
             <Image src="/MystixKat-v.png" alt="glitchy kitty" fill />
           </div>
@@ -35,8 +34,11 @@ const FooterComp = () => {
           <h1 className="text-1xl md:text-2xl font-bold">Mystic Kitten</h1>
         </div>
 
-        <p className="font-semibold text-sm w-[300px] md:w-[800px]">
-          The place to come through when you feeling lost or someone comes into your life and ruins it and you have to all this stress because you know you have to do so much stuff and nobody going to help but just look and give you a hard time
+        <p className="font-semibold text-sm ">
+          The place to come through when you feeling lost or someone comes into
+          your life and ruins it and you have to all this stress because you
+          know you have to do so much stuff and nobody going to help but just
+          look and give you a hard time
         </p>
 
         <div className="mt-[10px] flex gap-[10px] items-center justify-center md:justify-start">
@@ -51,17 +53,20 @@ const FooterComp = () => {
           <span className="bg-emerald-500 p-2 text-center rounded-md font-bold">
             Links
           </span>
-          {
-          listLinks.map((item: any) => (
-            <Link href={item.href} key={crypto.randomUUID()} className="p-2  font-bold text-sm capitalize hover:text-[#aa922759] hover:underline">
-              <span>{item.route}{item.emoji}</span>
+          {listLinks.map((item: any) => (
+            <Link
+              href={item.href}
+              key={crypto.randomUUID()}
+              className="p-2  font-bold text-sm capitalize hover:text-[#aa922759] hover:underline"
+            >
+              <span>
+                {item.route}
+                {item.emoji}
+              </span>
             </Link>
-          ))
-        }
+          ))}
         </div>
-
       </div>
-
     </footer>
   );
 };
