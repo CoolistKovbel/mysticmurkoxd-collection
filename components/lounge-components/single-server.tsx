@@ -12,7 +12,7 @@ export const SingleServer = (servers: any) => {
     <div key={crypto.randomUUID()} className="bg-[#111] p-2 shadow-lg text-white w-[150px] h-fit flex items-center justify-center flex-col gap-2 rounded-lg hover:shadow-lime-500">
 
         <div className="w-20 h-20 relative">
-            <Image src="/MysticMurkoNFT.png" alt="best server to join now..." fill  className="rounded-full"/>
+            <Image src={`/${servers.servers.logo}`} alt="best server to join now..." fill  className="rounded-full"/>
         </div>
 
         <h3>

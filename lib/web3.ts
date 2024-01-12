@@ -180,11 +180,17 @@ export const sendAnnouncement = async (message:string) => {
       signer
     );
 
-    await contractInstance.createMessage(message, {
+    const announcement = await contractInstance.createMessage(message, {
       value: ethers.utils.parseEther((0.012).toString()),
-      gasLimit: 500000,
+      gasLimit: 600000,
     });
 
+  
+    alert("Your announcement is being proccess")
+
+    await announcement.wait()
+
+    alert(`your announcement has been completed: ${announcement.hash} `)
   
 
     
@@ -291,7 +297,7 @@ export const handleCreateServer = async (channelName: string, weiValue: any, ima
 
     const serverCreated = await contractInstance.createChannel(channelName, weiValue, imageUrl, {
       value: ethers.utils.parseEther((0.024).toString()),
-      gasLimit: 300000,
+      gasLimit: 500000,
     })
 
 
@@ -303,6 +309,36 @@ export const handleCreateServer = async (channelName: string, weiValue: any, ima
 
 
     
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
+
+/**
+ * Makea a withdrawl
+ *
+ * @type {() => void}
+ */
+
+export const ownerWithdrawl = async () => {
+  try {
+    
+
+    const provider = new ethers.providers.Web3Provider(window?.ethereum as any);
+
+    const signer = provider.getSigner();
+
+    const contractInstance = new ethers.Contract(
+      contractAddress,
+      ABI.abi,
+      signer
+    );
+
+
+    await contractInstance.withdraw()
+
+
   } catch (error) {
     console.log(error)
     return null

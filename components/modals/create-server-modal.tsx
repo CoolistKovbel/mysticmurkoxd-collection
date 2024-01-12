@@ -64,24 +64,25 @@ export const CreateServerModal = () => {
       const data = new FormData()
       data.append("imageUrl", values.imageUrl || "")
 
+
+      const channelCost = ethers.utils.parseEther(values.cost);
+
       const imageUrl  = await fetch('/api/fileUpload', {
         method: "POST",
         body: data
       })
 
+      const serverImage = await imageUrl.json()
 
-      let cost = ethers.utils.parseEther(values.cost)
+      console.log(serverImage)
 
-      const etherValue = ethers.utils.formatEther(cost.toString())
-
-      console.log(etherValue)
+      const etherValue = ethers.utils.formatEther(channelCost.toString())
       const weiValue = ethers.utils.parseEther(etherValue);
-      console.log(weiValue)
 
 
-      await handleCreateServer(values.name, weiValue, imageUrl)
+      await handleCreateServer(values.name, weiValue, serverImage)
 
-      console.log(values);
+      
 
       form.reset();
       router.refresh();

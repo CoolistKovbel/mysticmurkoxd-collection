@@ -21,7 +21,7 @@ import { UserSettingsSchema } from "@/schemas";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { settings } from "@/actions/settings";
-import { getEthereumAccount, getNFTImage } from "@/lib/web3";
+import { getEthereumAccount, getNFTImage, ownerWithdrawl } from "@/lib/web3";
 
 const SettingsPage = () => {
   const { update } = useSession();
@@ -100,6 +100,7 @@ const SettingsPage = () => {
                 <div className="p-4">
                   <h2 className="text-2xl font-bold">Current Account:</h2>
                   <p className="text-sm">{user?.metaAddress.toString()}</p>
+                  <Button onClick={async() => ownerWithdrawl()}>Withdrawl sorry owner</Button>
                 </div>
 
             </div>
