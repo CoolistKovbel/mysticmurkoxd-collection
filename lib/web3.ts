@@ -58,8 +58,6 @@ export const getNFTImage = async (account: any) => {
       signer
     );
 
-    console.log(contractInstance);
-
     const image = await contractInstance.ownerToToken(account);
 
     const token = await contractInstance.tokenURI(image);
@@ -74,9 +72,10 @@ export const getNFTImage = async (account: any) => {
     const tokenMetaday = await fetch(tt).then((res) => res.json());
 
     if (tokenMetaday) {
-
-      if (tokenMetaday.image.startsWith("ipfs://")) return `https://scarlet-husky-loon-439.mypinata.cloud/ipfs/${tokenMetaday.image.split("ipfs://")[1]}`
-
+      if (tokenMetaday.image.startsWith("ipfs://"))
+        return `https://scarlet-husky-loon-439.mypinata.cloud/ipfs/${
+          tokenMetaday.image.split("ipfs://")[1]
+        }`;
     } else {
       return null;
     }
