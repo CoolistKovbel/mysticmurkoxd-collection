@@ -1,12 +1,30 @@
-
-import React from "react";
+"use client"
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { ethers } from "ethers";
 import SingleServerJoinButton from "./single-server-join-button";
+import { getEthereumAccount } from "@/lib/web3";
+import { SingleServerEnterButton } from "./single-server-enter-button";
 
 export const SingleServer = (servers: any) => {
 
-    console.log(servers)
+    const [hasJoined, setHasJoined] = useState(false)
+
+    useEffect(() => {
+
+        const xx = async () => {
+            const account = await getEthereumAccount()
+            const serverUserList = servers?.servers?.users
+            console.log(`This is ${serverUserList} and this is ${account}`)
+            const hasJpoined = serverUserList.some((item: string) => item.toLowerCase() === account)
+            setHasJoined(hasJpoined)
+        }
+
+        xx()
+
+        return () => {}
+    }, [])
+
 
   return (
     <div key={crypto.randomUUID()} className="bg-[#111] p-2 shadow-lg text-white w-[150px] h-fit flex items-center justify-center flex-col gap-2 rounded-lg hover:shadow-lime-500">
@@ -23,7 +41,15 @@ export const SingleServer = (servers: any) => {
             {ethers.utils.formatEther(servers.servers.cost)}
         </h4>
 
-        <SingleServerJoinButton  serverId={servers.servers.id} cost={servers.servers.cost} />
+
+    {
+        hasJoined ? (
+            <SingleServerEnterButton />
+        )  : (
+            <SingleServerJoinButton  serverId={servers.servers.id} cost={servers.servers.cost} />
+        )
+    }
+        
 
 
     </div>
