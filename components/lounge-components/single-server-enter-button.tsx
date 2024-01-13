@@ -13,7 +13,7 @@ export const SingleServerEnterButton = ({serverId}:SingleServerEnterButtonProps)
   const router = useRouter()
 
   const handleEnterServer = async () => {
-    const url = `${window.location.href}/${serverId}`
+    const url = `http://localhost:3000/lounge/${serverId}`
 
     router.push(url)
   }

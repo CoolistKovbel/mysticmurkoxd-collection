@@ -1,6 +1,10 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useModal } from "@/hooks/use-modal-store";
+import { getSpecificServer } from "@/lib/web3";
+import { Button } from "../ui/button";
 
 
 interface ServerSideBarProps {
@@ -8,19 +12,66 @@ interface ServerSideBarProps {
 }
 
 export function GroupSideBar({ serverId }: ServerSideBarProps) {
-  const route = `http://locahost:3000/${serverId}`
+
+  const { onOpen } = useModal();
+
+  const route = `http://localhost:3000/${serverId}`
   const url = `${route}/channel/lounge`
+
+  const [currentServer, setCurrentServer] = useState<[]>([]);
+  const [serverChannels,setServerChannels] = useState<[]>([])
+
+
+  const handleCreateServer = async () => {
+
+    onOpen("createChannel")
+    console.log("handling server creating")
+  }
+
+
+
+  useEffect(() => {
+    const ccx = async () => {
+      const server = await getSpecificServer(serverId);
+
+      const channels = await fetch(`/api/getAllChannels?serverId=${serverId}`)
+      const deChannels = await channels.json()
+
+      setCurrentServer(server);
+      setServerChannels(deChannels)
+    };
+
+    ccx();
+  }, []);
+
 
   return (
     <div className="bg-[#333] w-[23%] min-h-[100vh] hidden md:flex  flex-col  inset-y-0">
-      <header>
-        {serverId}
+      <header className="bg-[#564] font-bold p-1">
+        {currentServer.name}
+
+
+        <Button onClick={handleCreateServer}>💾</Button>
+
       </header>
 
       {/* <ServerChannel group={singleServer} channels={channels} /> */}
 
-      <div>
-        <Link href={url}>Lounge</Link>
+      <div className="w-full">
+        <h4>Default channel</h4>
+        <Link href={url} className="bg-[#123] w-full block p-2 hover:bg-[#321]">Lounge</Link>
+
+        <h4>Channels</h4>
+        {
+          serverChannels && (
+            serverChannels.map((channel:any) => (
+              <Link href={`http://localhost:3000/lounge/1/channel/${channel.id}`} key={crypto.randomUUID()} className="bg-[#122] block font-bold text-white p-2 w-full">
+                {channel.name}
+              </Link>
+            ))
+          )
+        }
+
       </div>
 
 

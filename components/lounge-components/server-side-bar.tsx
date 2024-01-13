@@ -35,6 +35,8 @@ export const ServerSideBar = () => {
   useEffect(() => {
     xx();
     myZone()
+
+    return () => {}
   }, []);
 
   console.log(showServers)
@@ -44,8 +46,8 @@ export const ServerSideBar = () => {
       <h2 className="text-xl md:text-3xl font-bold text-center mt-4">
         <button onClick={xx}>Available Servers</button>
       </h2>
-      <button className="absolute p-4 bg-[#231] top-0 right-0" onClick={myZone}>
-        my servers
+      <button className="absolute p-1 text-[14px] font-bold bg-[#231] top-20 right-0" onClick={myZone}>
+        🌠
       </button>
 
       {!showServers ? (

@@ -54,6 +54,7 @@ export const CreateChannelSchema = z.object({
     .refine((name) => name !== "general", {
       message: "Channel name connot be 'general' ",
     }),
+  serverId: z.string()
 });
 
 /**

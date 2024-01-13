@@ -422,3 +422,35 @@ export const userIsVip = async () => {
     return null
   }
 }
+
+/**
+ * Grab specific server by id
+ *
+ * @type {() => void}
+ */
+
+export const getSpecificServer = async (serverId:any) => {
+  try {
+
+    const provider = new ethers.providers.Web3Provider(window?.ethereum as any);
+
+    const signer = provider.getSigner();
+
+    const contractInstance = new ethers.Contract(
+      contractAddress,
+      ABI.abi,
+      signer
+    );
+
+
+    const server = await contractInstance.channels(serverId)
+
+
+    return server
+
+    
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}

@@ -20,8 +20,8 @@ export const SingleServer = ({servers}:SingleServerProps) => {
         const xx = async () => {
             const account = await getEthereumAccount()
             const serverUserList = servers?.users
-            console.log(`This is ${serverUserList} and this is ${account}`)
             const hasJpoined = serverUserList.some((item: string) => item.toLowerCase() === account)
+            
             setHasJoined(hasJpoined)
         }
 
