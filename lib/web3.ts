@@ -219,9 +219,6 @@ export const grabAllServers = async () => {
       signer
     );
 
-    console.log(contractInstance)
-    
-
     const servers = await contractInstance.getAllChannels()
 
     return servers

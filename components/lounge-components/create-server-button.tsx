@@ -10,8 +10,11 @@ export const CreateServerButton = () => {
   const { onOpen } = useModal();
 
   const handleButtonClick = async () => {
+
     console.log("Check user! one moment please")
     const userHasNFT = await userIsVip()
+
+    // TODO: MAYBE ADD TOAST
     console.log("completed")
     if(userHasNFT === true){
       onOpen("createServer");
