@@ -1,11 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { grabAllServers, listenToChannelCreated, myServers } from "@/lib/web3";
+import { ethers } from "ethers";
+
+import { grabAllServers, myServers } from "@/lib/web3";
+import ABI from "@/lib/abi.json"
+import { contractAddress } from "@/routes";
 import { SingleServer } from "./single-server";
 import { CreateServerButton } from "./create-server-button";
 
 export const ServerSideBar = () => {
+
   const [allServers, setAllServers] = useState<[]>([]);
   const [userServers, setUserServers] = useState<[]>([]);
   const [showServers, setShowServers] = useState<boolean>(true);
@@ -32,6 +37,26 @@ export const ServerSideBar = () => {
   useEffect(() => {
     xx();
     myZone()
+
+    const provider = new ethers.providers.Web3Provider(window?.ethereum as any);
+    const signer = provider.getSigner();
+    const contractInstance = new ethers.Contract(
+      contractAddress,
+      ABI.abi,
+      signer
+    );
+
+    const handleUserServerCreated =  (channelName: string, owner: string) => {
+      console.log('Channel Created:', { channelName, owner });
+      xx();
+      myZone()
+    };
+
+    contractInstance.on("ChannelCreated" , handleUserServerCreated);
+    
+    return () => {
+      contractInstance.off("ChannelCreated" , handleUserServerCreated);
+    }
 
   }, []);
 

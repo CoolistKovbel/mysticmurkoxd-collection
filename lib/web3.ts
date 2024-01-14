@@ -119,36 +119,6 @@ export const listenToChannelCreated = async () => {
   }
 }
 
-export const listenToAllAnnouncements =  () => {
-
-  try {
-    console.log("listing to events i hope")
-
-    const provider = new ethers.providers.Web3Provider(window?.ethereum as any);
-
-    const signer = provider.getSigner();
-
-    const contractInstance = new ethers.Contract(
-      contractAddress,
-      ABI.abi,
-      signer
-    );
-
-
-    contractInstance.on("UserAnnounced", (user, announcemnet) => {
-
-      console.log(`${user} announced, ${JSON.stringify(announcemnet)}`)
-
-      return "listing i think"
-
-    })
-
-
-  } catch (error) {
-    console.log(error)
-    return null
-  }
-}
 
 /**
  * Grab all anounce messages.

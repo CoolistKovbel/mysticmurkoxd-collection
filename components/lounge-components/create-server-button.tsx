@@ -11,7 +11,7 @@ export const CreateServerButton = () => {
 
   const handleButtonClick = async () => {
 
-    console.log("Check user! one moment please")
+    alert("Check user! one moment please")
     const userHasNFT = await userIsVip()
 
     // TODO: MAYBE ADD TOAST
