@@ -11,6 +11,10 @@ interface ServerSideBarProps {
     serverId: any;
 }
 
+interface Server {
+  name: string;
+}
+
 export function GroupSideBar({ serverId }: ServerSideBarProps) {
 
   const { onOpen } = useModal();
@@ -18,7 +22,7 @@ export function GroupSideBar({ serverId }: ServerSideBarProps) {
   const route = `http://localhost:3000/${serverId}`
   const url = `${route}/channel/lounge`
 
-  const [currentServer, setCurrentServer] = useState<[]>([]);
+  const [currentServer, setCurrentServer] = useState<Server>();
   const [serverChannels,setServerChannels] = useState<[]>([])
 
 
@@ -37,6 +41,8 @@ export function GroupSideBar({ serverId }: ServerSideBarProps) {
       const channels = await fetch(`/api/getAllChannels?serverId=${serverId}`)
       const deChannels = await channels.json()
 
+      console.log(server)
+
       setCurrentServer(server);
       setServerChannels(deChannels)
     };
@@ -44,11 +50,13 @@ export function GroupSideBar({ serverId }: ServerSideBarProps) {
     ccx();
   }, []);
 
+  console.log(currentServer)
+
 
   return (
     <div className="bg-[#333] w-[23%] min-h-[100vh] hidden md:flex  flex-col  inset-y-0">
       <header className="bg-[#564] font-bold p-1">
-        {currentServer.name}
+        {currentServer && <h2>{currentServer.name}</h2>}
 
 
         <Button onClick={handleCreateServer}>💾</Button>
