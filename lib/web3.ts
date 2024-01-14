@@ -93,6 +93,32 @@ export const getNFTImage = async (account: any) => {
  * @type {() => void}
  */
 
+export const listenToChannelCreated = async () => {
+  try {
+
+    const provider = new ethers.providers.Web3Provider(window?.ethereum as any);
+
+    const signer = provider.getSigner();
+
+    const contractInstance = new ethers.Contract(
+      contractAddress,
+      ABI.abi,
+      signer
+    );
+
+
+    contractInstance.on("ChannelCreated", (channelName: string, owner: string) => {
+      // Handle the event data as needed
+      console.log('Channel Created:', { channelName, owner });
+
+    })
+    
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
+
 export const listenToAllAnnouncements = async () => {
   try {
 

@@ -48,9 +48,9 @@ export function GroupSideBar({ serverId }: ServerSideBarProps) {
     };
 
     ccx();
-  }, []);
+  }, [serverId]);
 
-  console.log(currentServer)
+
 
 
   return (

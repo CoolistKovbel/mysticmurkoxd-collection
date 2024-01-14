@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { grabAllServers, myServers } from "@/lib/web3";
+import { grabAllServers, listenToChannelCreated, myServers } from "@/lib/web3";
 import { SingleServer } from "./single-server";
 import { CreateServerButton } from "./create-server-button";
 
@@ -14,9 +14,6 @@ export const ServerSideBar = () => {
     try {
       const deUserServers = await myServers();
       setUserServers(deUserServers);
-
-      console.log("click",deUserServers)
-      
       if(userServers.length > 0) setShowServers(false);
 
 
@@ -36,7 +33,6 @@ export const ServerSideBar = () => {
     xx();
     myZone()
 
-    return () => {}
   }, []);
 
   return (
