@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { AnnounceFormSchema } from "@/schemas/index";
-import { sendAnnouncement } from "@/lib/web3";
+import { listenToAllAnnouncements, sendAnnouncement } from "@/lib/web3";
 import { Textarea } from "@/components/ui/textarea";
 import {
     Form,
@@ -18,6 +18,7 @@ import {
 import { Button } from "../ui/button";
 
 export const AnnouncementForm = () => {
+
   const form = useForm<z.infer<typeof AnnounceFormSchema>>({
     resolver: zodResolver(AnnounceFormSchema),
     defaultValues: {
@@ -28,6 +29,7 @@ export const AnnouncementForm = () => {
   const onSubmit = async (values: z.infer<typeof AnnounceFormSchema>) => {
     try {
       await sendAnnouncement(values.message);
+      
 
       form.reset()
     } catch (error) {
