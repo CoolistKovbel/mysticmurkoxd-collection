@@ -113,14 +113,10 @@ export const listenToAllAnnouncements = async () => {
         announcemnet
       }
 
-      console.log(data)
+      return data
     })
 
-    
-
-    return null
-
-
+  
     
   } catch (error) {
     console.log(error)
@@ -248,10 +244,17 @@ export const handleServerJoin = async (serverId: any, cost: any) => {
       signer
     );
 
+    console.log(cost)
+    console.log(cost.toString())
 
-    const joingServer = await contractInstance.joinChannel(serverId.toString(), {
-      value: cost.toString(),
-      gasLimit: 300000,
+
+    // Convert cost to Ether
+
+    const etherDD = ethers.utils.formatEther(cost)
+
+    const joingServer = await contractInstance.joinChannel(serverId, {
+      value:  ethers.utils.parseEther(etherDD.toString()),
+      gasLimit: 800000,
     })
 
 

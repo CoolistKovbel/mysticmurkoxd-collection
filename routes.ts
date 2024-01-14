@@ -22,4 +22,4 @@ export const DEFAULT_LOGIN_REDIRECT = "/settings";
  * The Contract Address for the nft Minting collection
  * @type {string}
  */
-export const contractAddress = "0x95790A17f7177b1B534Ed76D493E33094988c100";
+export const contractAddress = "0xB6BCdC8F6f40561AEc2ef0e765bAfFf4afA71283";

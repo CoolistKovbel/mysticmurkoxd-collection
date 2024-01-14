@@ -8,9 +8,6 @@ import { SignOutButton } from "../sing-out-button";
 
 const DeHeader = async () => {
 
-
-
-
   const listLinks = [
     {
       route: "Home",
@@ -64,7 +61,7 @@ const DeHeader = async () => {
         <SignOutButton />
       </nav>
 
-      <div className="block md:hidden">
+      <div className="block md:hidden flex items-center  gap-12">
         <MobileNav />
         <SignOutButton />
       </div>

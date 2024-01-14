@@ -14,8 +14,11 @@ export const AllMessages = () => {
         const xx = async () => {
             const announcemnets = await getAllAnouncements()
 
-            await listenToAllAnnouncements()
+            const dd = await listenToAllAnnouncements()
 
+            console.log(dd)
+
+            
             setAllAnnouncments(announcemnets)
         }
 

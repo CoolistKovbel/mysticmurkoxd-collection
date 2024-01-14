@@ -14,6 +14,8 @@ export const ServerSideBar = () => {
     try {
       const deUserServers = await myServers();
       setUserServers(deUserServers);
+
+      console.log("click",deUserServers)
       
       if(userServers.length > 0) setShowServers(false);
 
@@ -26,8 +28,6 @@ export const ServerSideBar = () => {
 
   const xx = async () => {
     const servers = await grabAllServers();
-
-    console.log(servers);
     setAllServers(servers);
     setShowServers(true);
   };
@@ -38,8 +38,6 @@ export const ServerSideBar = () => {
 
     return () => {}
   }, []);
-
-  console.log(showServers)
 
   return (
     <div className="hidden md:flex min-h-[100vh] w-[22%] flex-col inset-y-0 bg-[#212] relative">
