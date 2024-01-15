@@ -3,13 +3,11 @@
 import React from 'react'
 
 
-interface ServerSideBarProps {
-  serverId: string;
-}
 
-const GroupIdPage = ({ serverId }: ServerSideBarProps) => {
 
-  console.log(serverId)
+const GroupIdPage = () => {
+
+
 
   return (
     <div>

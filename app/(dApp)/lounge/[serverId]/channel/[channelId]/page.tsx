@@ -25,6 +25,7 @@ const ChannelChatPage = ({ params }: ChannelIdPageProps) => {
 
   useEffect(() => {
     xx();
+    return () => {}
   }, []);
 
   if (params.channelId === "lounge") {

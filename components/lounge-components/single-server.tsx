@@ -28,7 +28,7 @@ export const SingleServer = ({servers}:SingleServerProps) => {
         xx()
 
         return () => {}
-    }, [])
+    }, [servers?.users])
 
 
   return (
