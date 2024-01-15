@@ -22,7 +22,7 @@ export const getEthereumAccount = async () => {
       return null;
     }
 
-    const accounts = await ethereum.request({ method: "eth_accounts" });
+    const accounts = await ethereum.request({ method: "eth_requestAccounts" });
 
     if (accounts.length !== 0) {
       const account = accounts[0];

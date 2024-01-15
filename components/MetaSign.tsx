@@ -11,7 +11,6 @@ import { signUserIntoApp, test } from "./test";
 
 export const MetaSign = () => {
   const { onOpen } = useModal();
-  const router = useRouter();
 
   const signInMeta = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
