@@ -57,14 +57,16 @@ export function GroupSideBar({ serverId }: ServerSideBarProps) {
 
       <div className="w-full">
         <h4>General Channel</h4>
-
-        <Link href={`http://localhost:3000/lounge/${serverId}/channel/lounge`} className="bg-[#123] w-full block p-2 hover:bg-[#321]">Lounge</Link>
+        {/* Looking for production */}
+        {/* <Link href={`http://localhost:3000/lounge/${serverId}/channel/lounge`} className="bg-[#123] w-full block p-2 hover:bg-[#321]">Lounge</Link> */}
+        <Link href={`https://www.mysticmurkoxd-collection-production.up.railway.app/lounge/${serverId}/channel/lounge`} className="bg-[#123] w-full block p-2 hover:bg-[#321]">Lounge</Link>
 
         <h4>Channels</h4>
         {
           serverChannels && (
             serverChannels.map((channel:any) => (
-              <Link href={`http://localhost:3000/lounge/${serverId}/channel/${channel.id}`} key={crypto.randomUUID()} className="bg-[#122] block font-bold text-white p-2 w-full">
+              // <Link href={`http://localhost:3000/lounge/${serverId}/channel/${channel.id}`} key={crypto.randomUUID()} className="bg-[#122] block font-bold text-white p-2 w-full">
+              <Link href={`https://www.mysticmurkoxd-collection-production.up.railway.app/lounge/${serverId}/channel/${channel.id}`} key={crypto.randomUUID()} className="bg-[#122] block font-bold text-white p-2 w-full">
                 {channel.name}
               </Link>
             ))

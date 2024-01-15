@@ -13,7 +13,8 @@ export const SingleServerEnterButton = ({serverId}:SingleServerEnterButtonProps)
   const router = useRouter()
 
   const handleEnterServer = async () => {
-    const url = `http://localhost:3000/lounge/${serverId}`
+    // const url = `http://localhost:3000/lounge/${serverId}`
+    const url = `https://www.mysticmurkoxd-collection-production.up.railway.app/lounge/${serverId}`
 
     router.push(url)
   }
