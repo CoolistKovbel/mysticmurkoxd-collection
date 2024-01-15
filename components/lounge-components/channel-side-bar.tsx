@@ -22,32 +22,27 @@ export function GroupSideBar({ serverId }: ServerSideBarProps) {
   const [currentServer, setCurrentServer] = useState<Server>();
   const [serverChannels,setServerChannels] = useState<[]>([])
 
+  const ccx = async () => {
+    const server = await getSpecificServer(serverId);
 
+    const channels = await fetch(`/api/getAllChannels?serverId=${serverId}`)
+    const deChannels = await channels.json()
+
+    setCurrentServer(server);
+    setServerChannels(deChannels)
+  };
+
+  
   const handleCreateServer = async () => {
-
     onOpen("createChannel")
-    console.log("handling server creating")
+
   }
 
-
-
+  // Need to setup a rerender....
   useEffect(() => {
-    const ccx = async () => {
-      const server = await getSpecificServer(serverId);
-
-      const channels = await fetch(`/api/getAllChannels?serverId=${serverId}`)
-      const deChannels = await channels.json()
-
-      console.log(server)
-
-      setCurrentServer(server);
-      setServerChannels(deChannels)
-    };
-
     ccx();
-  }, [serverId]);
 
-
+  }, []);
 
 
   return (
@@ -61,14 +56,15 @@ export function GroupSideBar({ serverId }: ServerSideBarProps) {
 
 
       <div className="w-full">
-        <h4>Default channel</h4>
-        <Link href={`${serverId}/channel/lounge`} className="bg-[#123] w-full block p-2 hover:bg-[#321]">Lounge</Link>
+        <h4>General Channel</h4>
+
+        <Link href={`http://localhost:3000/lounge/${serverId}/channel/lounge`} className="bg-[#123] w-full block p-2 hover:bg-[#321]">Lounge</Link>
 
         <h4>Channels</h4>
         {
           serverChannels && (
             serverChannels.map((channel:any) => (
-              <Link href={`http://localhost:3000/lounge/1/channel/${channel.id}`} key={crypto.randomUUID()} className="bg-[#122] block font-bold text-white p-2 w-full">
+              <Link href={`http://localhost:3000/lounge/${serverId}/channel/${channel.id}`} key={crypto.randomUUID()} className="bg-[#122] block font-bold text-white p-2 w-full">
                 {channel.name}
               </Link>
             ))

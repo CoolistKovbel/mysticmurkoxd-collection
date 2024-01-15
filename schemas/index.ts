@@ -88,3 +88,16 @@ export const AnnounceFormSchema = z.object({
     .min(1, "message is required")
     .max(255, "sorry you hit max characters"),
 });
+
+/**
+ * This is is for making sure user sends a good enough message..
+ * 
+ * @type {string{}}
+ */
+export const MessageFormSchema = z.object({
+  message: z
+    .string()
+    .min(1, "message is required")
+    .max(255, "sorry you hit max characters"),
+  channelId: z.string()
+});

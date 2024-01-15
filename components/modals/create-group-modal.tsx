@@ -36,6 +36,9 @@ export const CreateGroupModal = () => {
   const params = useParams();
   const isModalOpen = isOpen && type === "createChannel";
 
+
+  const {serverId, channelId} = params as any
+
   const form = useForm({
     resolver: zodResolver(CreateChannelSchema),
     defaultValues: {
@@ -46,8 +49,9 @@ export const CreateGroupModal = () => {
 
 
   const onSubmit = async (values: z.infer<typeof CreateChannelSchema>) => {
+    
     try {
-      values.serverId = params.serverId as string
+      values.serverId = serverId as string
       
       startTranstion(() => { 
         addChannel(values).then((data: any) => {
@@ -58,6 +62,10 @@ export const CreateGroupModal = () => {
         })
       })
 
+
+      form.reset();
+      router.refresh();
+      onClose();
 
     } catch (error) {
       console.log(error);

@@ -70,8 +70,10 @@ model Message {
   userId String @db.ObjectId
   user   User   @relation(fields: [userId], references: [id])
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  
   Member    Member?  @relation(fields: [memberId], references: [id])
   memberId  String?  @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

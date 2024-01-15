@@ -1,3 +1,5 @@
+// Possble blank page or just an INFO about the server
+
 import React from 'react'
 
 

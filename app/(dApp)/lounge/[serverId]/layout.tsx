@@ -1,3 +1,4 @@
+// Select Server Details
 
 import { GroupSideBar } from "@/components/lounge-components/channel-side-bar";
 

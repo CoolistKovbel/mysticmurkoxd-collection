@@ -20,6 +20,13 @@ export const addChannel = async (values: z.infer<typeof CreateChannelSchema>) =>
     return { error: "User not found" };
   }
 
+
+  const channelExist = await db.channel.findFirst({where: {name: values.name}})
+
+  if(channelExist) {
+    return { error: "Channel already exists" };
+  }
+
   await db.channel.create({
     data:{
         name: values.name,

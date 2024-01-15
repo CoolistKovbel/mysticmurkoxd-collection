@@ -1,3 +1,6 @@
+// Main Component
+
+
 import { ServerSideBar } from "@/components/lounge-components/server-side-bar";
 
 export default async function DappLayout({

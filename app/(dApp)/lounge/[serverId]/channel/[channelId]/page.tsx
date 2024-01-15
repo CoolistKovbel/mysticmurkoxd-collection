@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import React from 'react'
-
-import { SocketIndicator } from '@/components/socket-indicator';
-import { useParams } from 'next/navigation';
+import { ChannelHeader } from "@/components/lounge-components/channel/channel-header";
+import { ChannelMessages } from "@/components/lounge-components/channel/channel-messages";
+import { ChannelSetMessage } from "@/components/lounge-components/channel/channel-set-message";
+import React, { useEffect, useState } from "react";
 
 interface ChannelIdPageProps {
   params: {
@@ -13,37 +13,38 @@ interface ChannelIdPageProps {
 }
 
 const ChannelChatPage = ({ params }: ChannelIdPageProps) => {
+  const [channelDetails, setChannelDetials] = useState<any>([]);
 
+  const xx = async () => {
+    const channelData = await fetch(
+      `/api/getSingleChannel?channelId=${params.channelId}&serverId=${params.groupId}`
+    );
+    const data = await channelData.json();
+    setChannelDetials(data);
+  };
 
+  useEffect(() => {
+    xx();
+  }, []);
 
-  const router = useParams();
-
-
-  console.log(router)
-
-  // Access route parameters
-
+  if (params.channelId === "lounge") {
+    return (
+      <div>
+        <ChannelHeader channelDetails="lounge"/>
+        {/* In porgress */}
+      </div>
+    );
+  }
 
   return (
     <div>
+      <ChannelHeader channelDetails={channelDetails} />
 
-      <header>
-        <h2>Channel {JSON.stringify(params)}</h2>
-        <SocketIndicator />
-      </header>
+      <ChannelMessages messages={channelDetails?.Message} />
 
-      <div>
-        <h2>all Messages</h2>
-      </div>
-
-
-      <div>
-        <h3>Send Message</h3>
-      </div>
-
-      
+      <ChannelSetMessage channelId={params.channelId} xx={xx} />
     </div>
-  )
-}
+  );
+};
 
-export default ChannelChatPage
+export default ChannelChatPage;
