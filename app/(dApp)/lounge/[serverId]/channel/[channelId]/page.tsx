@@ -1,4 +1,9 @@
+"use client"
+
 import React from 'react'
+
+import { SocketIndicator } from '@/components/socket-indicator';
+import { useParams } from 'next/navigation';
 
 interface ChannelIdPageProps {
   params: {
@@ -10,10 +15,33 @@ interface ChannelIdPageProps {
 const ChannelChatPage = ({ params }: ChannelIdPageProps) => {
 
 
+
+  const router = useParams();
+
+
+  console.log(router)
+
+  // Access route parameters
+
+
   return (
     <div>
-      <h2>ChannelIDPAge</h2>
-      {JSON.stringify(params)}
+
+      <header>
+        <h2>Channel {JSON.stringify(params)}</h2>
+        <SocketIndicator />
+      </header>
+
+      <div>
+        <h2>all Messages</h2>
+      </div>
+
+
+      <div>
+        <h3>Send Message</h3>
+      </div>
+
+      
     </div>
   )
 }

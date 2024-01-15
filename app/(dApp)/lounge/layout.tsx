@@ -8,7 +8,7 @@ export default async function DappLayout({
   return (
     <section className="text-white flex">
       <ServerSideBar />
-      <div className="min-h-[100vh]  w-full  bg-[#214]">{children}</div>
+      <div className="min-h-[100vh] w-full  bg-[#214]">{children}</div>
     </section>
   );
 }

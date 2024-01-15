@@ -19,9 +19,6 @@ export function GroupSideBar({ serverId }: ServerSideBarProps) {
 
   const { onOpen } = useModal();
 
-  const route = `http://localhost:3000/${serverId}`
-  const url = `${route}/channel/lounge`
-
   const [currentServer, setCurrentServer] = useState<Server>();
   const [serverChannels,setServerChannels] = useState<[]>([])
 
@@ -54,20 +51,18 @@ export function GroupSideBar({ serverId }: ServerSideBarProps) {
 
 
   return (
-    <div className="bg-[#333] w-[23%] min-h-[100vh] hidden md:flex  flex-col  inset-y-0">
-      <header className="bg-[#564] font-bold p-1">
+    <div className="bg-[#333] w-[23%] min-h-[100vh] hidden md:flex flex-col inset-y-0">
+
+      <header className="bg-[#564] font-bold p-1 flex items-center justify-between">
         {currentServer && <h2>{currentServer.name}</h2>}
 
-
         <Button onClick={handleCreateServer}>💾</Button>
-
       </header>
 
-      {/* <ServerChannel group={singleServer} channels={channels} /> */}
 
       <div className="w-full">
         <h4>Default channel</h4>
-        <Link href={url} className="bg-[#123] w-full block p-2 hover:bg-[#321]">Lounge</Link>
+        <Link href={`${serverId}/channel/lounge`} className="bg-[#123] w-full block p-2 hover:bg-[#321]">Lounge</Link>
 
         <h4>Channels</h4>
         {
