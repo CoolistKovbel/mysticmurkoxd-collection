@@ -38,3 +38,5 @@ you will be able to send a message within a chat but not delete so be smart.
 ### im sorry
 Things are not what they seem to me, want to change my life like how i wanted it back in 2019 before 2020 struck, but thanks to an awful mother and her tragic common sense and the things she put in heads, lead me off my path and close to a path to working like a father supporting kids when there isnt anything else he could do and work his life away. instead of allowing me to finnse like my family did but no everything is fucked so 420 blast it doing shit last minute like death is chasing me. Really need to get my blog out after my 2nd project is up and running... maybe.. if only it wont create errors.
 
+# would be nice for a dm or a donation.
+eth wallet for the moment: 0x610aC7169092c2120f20B3b04d8452fa5a90c774 
